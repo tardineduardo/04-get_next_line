@@ -108,7 +108,7 @@ int main(void)
     int a = 0; // Counter for lines
     int b = 1; // Line number for printing
     char *newline; // Pointer to store the line read
-    while(a < 100) // Read up to 10 lines
+    while(a < 100) // Read up to 10 line
     {
         newline = get_next_line(file); // Get the next line from the file
         if (newline == NULL) // If NULL is returned (EOF or error)
