@@ -12,19 +12,16 @@ static char	*ft_read_loop(int fd, char *new)
 		buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 		if (!buf)
 			return (NULL);
-		
 		rsize = read(fd, buf, BUFFER_SIZE);
 		if (rsize == -1)
 			return(NULL);
-
-		new = ft_strjoin(new, buf);	// TEM PROBLEMA AQUI QUANDO O BUFFER É 1, pq já é a condição incial...
+		new = ft_strjoin(new, buf);
 		if (ft_strchr(buf, '\n'))
 			break;
 		free(buf);
 	}
 	return(new);
 }
-
 
 static char	*ft_extract_remain(char *new, char *rem)
 {
@@ -36,16 +33,10 @@ static char	*ft_extract_remain(char *new, char *rem)
 	a = 0;
 	while(new[a] != '\n')
 		a++;
-	
 	ft_strlcpy(rem, &new[a + 1], BUFFER_SIZE);
 	new[a + 1] = 0;
-
 	return(rem);
 }
-
-
-
-
 
 static char	*ft_handle_rem(char *rem)
 {
@@ -53,7 +44,6 @@ static char	*ft_handle_rem(char *rem)
 	char 	*temp;
 
 	temp = calloc(BUFFER_SIZE + 1, 1);
-	
 	if (ft_strchr(rem, '\n'))
 	{
 		a = 0;
@@ -67,7 +57,6 @@ static char	*ft_handle_rem(char *rem)
 		ft_strlcpy(temp, rem, BUFFER_SIZE+1);
 		rem[0] = 0;
 	}
-
 	return (temp);
 }
 
@@ -78,18 +67,14 @@ char *get_next_line(int fd)
     static char    *rem;
 
 	new = ft_calloc(1, 1);
-
 	if(rem && rem[0] != 0)
 	{	
-		new = ft_handle_rem(rem);//copy content from remainder to newline.
+		new = ft_handle_rem(rem);
 		if (ft_strchr(new, '\n') || rem[0] == 0)
-		{
-			return(new);			
-		}
+			return(new);
 	}
-
     new = ft_read_loop(fd, new);
-    if(!new)
+    if(!new || new[0] == 0)
     {
         free(new);
 		if(rem)
@@ -99,12 +84,6 @@ char *get_next_line(int fd)
 	if (ft_strchr(new, '\n'))	
 		rem = ft_extract_remain(new, rem);
 
-	if (new[0] == 0)
-	{
-		free(rem);
-		free(new); 
-		new = (NULL);
-	}
 	return (new);
 }
 
@@ -112,11 +91,12 @@ char *get_next_line(int fd)
 
 int main(void)
 {
-    int file = open("specs.txt", O_RDONLY); // Open a file for reading
+    int file = open("get_next_line.h", O_RDONLY); // Open a file for reading
     int a = 0; // Counter for lines
     int b = 1; // Line number for printing
     char *newline; // Pointer to store the line read
-    while(a < 10) // Read up to 10 line
+	newline = calloc(1, 1);
+    while(newline) 
     {
         newline = get_next_line(file); // Get the next line from the file
         if (newline == NULL) // If NULL is returned (EOF or error)
