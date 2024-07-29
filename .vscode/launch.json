@@ -10,8 +10,8 @@
 		"args": [],
 		"stopAtEntry": false,
 		"externalConsole": false,
-		"cwd": "/home/eduardo/Área de trabalho/ESTOUAQUI",
-		"program": "/home/eduardo/Área de trabalho/ESTOUAQUI/get",
+		"cwd": "/home/eduardo/Documentos/gnl",
+		"program": "/home/eduardo/Documentos/gnl/get",
 		"MIMode": "gdb",
 		"miDebuggerPath": "gdb",
 		"setupCommands": [

@@ -6,19 +6,22 @@ static char	*ft_read_loop(int fd, char *new)
 	char	*buf;
 	int		rsize;
 
-	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (!buf)
-		return (NULL);
 	rsize = BUFFER_SIZE;
-	while (rsize == BUFFER_SIZE && !ft_strchr(buf, '\n'))
+	while (rsize == BUFFER_SIZE)
 	{
+		buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+		if (!buf)
+			return (NULL);
+		
 		rsize = read(fd, buf, BUFFER_SIZE);
 		if (rsize == -1)
 			return(NULL);
 
-		new = ft_strjoin(new, buf);
+		new = ft_strjoin(new, buf);	// TEM PROBLEMA AQUI QUANDO O BUFFER É 1, pq já é a condição incial...
+		if (ft_strchr(buf, '\n'))
+			break;
+		free(buf);
 	}
-	free(buf);
 	return(new);
 }
 
@@ -62,7 +65,7 @@ static char	*ft_handle_rem(char *rem)
 	else
 	{
 		ft_strlcpy(temp, rem, BUFFER_SIZE+1);
-		free(rem);
+		rem[0] = 0;
 	}
 
 	return (temp);
@@ -79,7 +82,7 @@ char *get_next_line(int fd)
 	if(rem && rem[0] != 0)
 	{	
 		new = ft_handle_rem(rem);//copy content from remainder to newline.
-		if (ft_strchr(new, '\n') || !rem)
+		if (ft_strchr(new, '\n') || rem[0] == 0)
 		{
 			return(new);			
 		}
@@ -96,7 +99,13 @@ char *get_next_line(int fd)
 	if (ft_strchr(new, '\n'))	
 		rem = ft_extract_remain(new, rem);
 
-    return (new);
+	if (new[0] == 0)
+	{
+		free(rem);
+		free(new); 
+		new = (NULL);
+	}
+	return (new);
 }
 
 
