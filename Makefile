@@ -2,7 +2,9 @@
 CC = cc
 
 # Compilation flags
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -g
+#CFLAGS = -Wall -Wextra -Werror -g
+
 
 # Source files
 SRCS = $(wildcard *.c)

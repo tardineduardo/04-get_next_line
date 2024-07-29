@@ -77,6 +77,9 @@ char *get_next_line(int fd)
 	char			*temp;
     static char		*rem;
 
+	if (fd < 0)
+		return (NULL);
+
 	new = ft_calloc(1, 1);
 	temp = new;
 	if(rem && rem[0] != 0)
@@ -105,7 +108,7 @@ char *get_next_line(int fd)
 
 int main(void)
 {
-    int file = open("get_next_line.h", O_RDONLY); // Open a file for reading
+    int file = open("c.txt", O_RDONLY); // Open a file for reading
     int a = 0; // Counter for lines
     int b = 1; // Line number for printing
     char *newline; // Pointer to store the line read
@@ -126,6 +129,5 @@ int main(void)
         b++; // Increment line number
     }
 	free(temp); // Free the line after printing to prevent memory leaks
-    close(file); // Close the file descriptor
     return (0); // Return success
 }
