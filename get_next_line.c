@@ -13,10 +13,9 @@ static char	*ft_read_loop(int fd, char *new)
 	while (rsize == BUFFER_SIZE && !ft_strchr(buf, '\n'))
 	{
 		rsize = read(fd, buf, BUFFER_SIZE);
-		if (rsize == -1 || rsize == 0)
-		{
+		if (rsize == -1)
 			return(NULL);
-		}	
+
 		new = ft_strjoin(new, buf);
 	}
 	free(buf);
@@ -108,7 +107,7 @@ int main(void)
     int a = 0; // Counter for lines
     int b = 1; // Line number for printing
     char *newline; // Pointer to store the line read
-    while(a < 100) // Read up to 10 line
+    while(a < 10) // Read up to 10 line
     {
         newline = get_next_line(file); // Get the next line from the file
         if (newline == NULL) // If NULL is returned (EOF or error)
