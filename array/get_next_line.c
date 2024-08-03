@@ -1,6 +1,7 @@
 #include "get_next_line.h"
 #include <stdio.h> ///// REMOVE!!!
 
+
 static char	*ft_read_loop(int fd, char *new)
 {
 	char	*buf;
@@ -33,61 +34,53 @@ static char	*ft_read_loop(int fd, char *new)
 static char	*ft_extract_remain(char *new, char *rem)
 {
 	int		a;
-	char	*temp;
 
-	temp = rem;
-	rem = ft_calloc(BUFFER_SIZE, 1);
-	if (!rem)
-		return (NULL);
 	a = 0;
 	while(new[a] != '\n')
 		a++;
 	ft_strlcpy(rem, &new[a + 1], BUFFER_SIZE);
 	new[a + 1] = 0;
-	free(temp);
 	return(rem);
 }
 
 static char	*ft_handle_rem(char *rem)
 {
 	int		a;
-	char 	*temp;
+	char 	*xxx;
 
-	temp = calloc(BUFFER_SIZE + 1, 1);
+	xxx = calloc(BUFFER_SIZE + 1, 1);
 	if (ft_strchr(rem, '\n'))
 	{
 		a = 0;
 		while(rem[a] != '\n')
 			a++;
-		ft_strlcpy(temp, rem, a + 2);
+		ft_strlcpy(xxx, rem, a + 2);
 		ft_strlcpy(rem, &rem[a + 1], BUFFER_SIZE);
 	}
 	else
 	{
-		ft_strlcpy(temp, rem, BUFFER_SIZE+1);
+		ft_strlcpy(xxx, rem, BUFFER_SIZE+1);
 		rem[0] = 0;
 	}
-	return (temp);
+	return (xxx);
 }
 
 
 char *get_next_line(int fd)
 {
     char			*new;
-	char			*temp;
-    static char		*rem;
+    static char		rem[BUFFER_SIZE];
 
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)		
 		return (NULL);
 
 	new = ft_calloc(1, 1);
-	temp = new;
-	if(rem && rem[0] != 0)
+	
+	if(rem[0] != 0)
 	{	
 		new = ft_handle_rem(rem);
-		if (ft_strchr(new, '\n') || rem[0] == 0)
+		if (ft_strchr(new, '\n')) //|| rem[0] == 0) //AQUI TA ERRADO
 		{
-			free(temp);
 			return(new);
 		}
 	}
@@ -95,12 +88,10 @@ char *get_next_line(int fd)
     if(!new || new[0] == 0)
     {
         free(new);
-		if(rem)
-			free(rem);
-        return (NULL);
+		return (NULL);
     }
-	if (ft_strchr(new, '\n'))	
-		rem = ft_extract_remain(new, rem);
+	if (ft_strchr(new, '\n'))
+		ft_extract_remain(new, rem);
 	return (new);
 }
 
@@ -108,13 +99,13 @@ char *get_next_line(int fd)
 
 int main(void)
 {
-    int file = open("c.txt", O_RDONLY); // Open a file for reading
+    int file = open("test1", O_RDONLY); // Open a file for reading
     int a = 0; // Counter for lines
     int b = 1; // Line number for printing
     char *newline; // Pointer to store the line read
-	char *temp;
+	char *tmp;
 	newline = malloc (1*1);
-	temp = newline;
+	tmp = newline;
     while(newline) 
     {
         newline = get_next_line(file); // Get the next line from the file
@@ -128,6 +119,7 @@ int main(void)
         a++; // Increment line counter
         b++; // Increment line number
     }
-	free(temp); // Free the line after printing to prevent memory leaks
+	free(tmp); // Free the line after printing to prevent memory leaks
+	tmp = NULL;
     return (0); // Return success
 }

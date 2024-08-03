@@ -10,8 +10,8 @@
 		"args": [],
 		"stopAtEntry": false,
 		"externalConsole": false,
-		"cwd": "/home/eduardo/Documentos/gnl",
-		"program": "/home/eduardo/Documentos/gnl/get",
+		"cwd": "/home/eduardo/Documentos/gnl/array",
+		"program": "/home/eduardo/Documentos/gnl/array/get",
 		"MIMode": "gdb",
 		"miDebuggerPath": "gdb",
 		"setupCommands": [

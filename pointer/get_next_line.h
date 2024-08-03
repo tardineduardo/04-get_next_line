@@ -21,7 +21,7 @@
 
 // Check if BUFFER_SIZE is already defined during compilation
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42 // Default buffer size if not defined externally
+#  define BUFFER_SIZE 4000 // Default buffer size if not defined externally
 # endif
 
 // Function declarations
