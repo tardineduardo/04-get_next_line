@@ -12,8 +12,6 @@
 
 #include "get_next_line.h"
 
-
-
 size_t	ft_strlen(char *s)
 {
 	int	count;
@@ -73,7 +71,7 @@ size_t ft_strlcpy(char *dest, const char *src, size_t size)
     return (src_len);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	ns_len;
 	size_t	s1_len;
@@ -88,11 +86,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	s1_len = ft_strlen((char *)s1);
 	s2_len = ft_strlen((char *)s2);
 	ns_len = s1_len + s2_len;
-	newstring = calloc((ns_len + 1), sizeof(char));
+	newstring = malloc((ns_len + 1) * sizeof(char));
 	if (newstring == (NULL))
 		return (NULL);
-	ft_memcpy((void *)newstring, (char *)s1, s1_len);
-	ft_memcpy((void *)&newstring[s1_len], (char *)s2, s2_len);
+    ft_strlcpy(newstring, s1, s1_len + 1);
+    ft_strlcpy(newstring + s1_len, s2, s2_len + 1);
+	newstring[ns_len + 1] = 0;
 	return (newstring);
 }
 
@@ -110,82 +109,3 @@ char	*ft_strchr(const char *str, int c)
 	return (NULL);
 }
 
-
-
-
-
-
-
-//nao usar
-
-// void    *ft_calloc(size_t nmemb, size_t size)
-// {
-//     unsigned char   *ptr;
-//     size_t          total_size;
-
-//     if (nmemb == 0 || size == 0)
-//         return (malloc(0));
-//     if (nmemb > SIZE_MAX / size)
-//         return (NULL);
-//     total_size = nmemb * size;
-//     ptr = malloc(total_size);
-//     if (ptr == NULL)
-//     {
-//         return (NULL);
-//     }
-//     while (total_size--)
-//     {
-//         *ptr = 0;
-//         ptr++;
-//     }
-//     return ((void *)(ptr - nmemb * size));
-// }
-
-
-
-// char *ft_strjoin(char *s1, char *s2)
-// {
-//     size_t  ns_len;
-//     size_t  s1_len;
-//     size_t  s2_len;
-//     char    *newstring;
-
-//     s1_len = ft_strlen(s1);
-//     s2_len = ft_strlen(s2);
-//     ns_len = s1_len + s2_len;
-
-//     newstring = (char *)malloc((ns_len + 1) * sizeof(char));
-//     if (newstring == NULL)
-//         return (NULL);
-
-//     ft_strlcpy(newstring, s1, s1_len + 1);
-//     ft_strlcpy(newstring + s1_len, s2, s2_len + 1);
-//     //free(s1);
-//     return (newstring);
-// }
-
-
-
-// #include "libft.h"
-// char	*ft_strjoin(char const *s1, char const *s2)
-// {
-// 	size_t	ns_len;
-// 	size_t	s1_len;
-// 	size_t	s2_len;
-// 	char	*newstring;
-// 	if (s1 == NULL && s2 == NULL)
-// 		return (NULL);
-// 	else if (s1 == NULL && s2 != NULL)
-// 		return (ft_strdup(s2));
-// 	else if (s1 != NULL && s2 == NULL)
-// 		return (ft_strdup(s1));
-// 	s1_len = ft_strlen((char *)s1);
-// 	s2_len = ft_strlen((char *)s2);
-// 	ns_len = s1_len + s2_len;
-// 	newstring = calloc((ns_len + 1), sizeof(char));
-// 	if (newstring == (NULL))
-// 		return (NULL);
-// 	ft_memcpy((void *)newstring, (char *)s1, s1_len);
-// 	ft_memcpy((void *)&newstring[s1_len], (char *)s2, s2_len);
-// 	return (newstring);
-// }
