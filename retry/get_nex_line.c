@@ -3,19 +3,18 @@
 
 static char *read_loop(int fd, char *nextline)
 {
-	char		buffer[BUFFER_SIZE];
-	char		*temp;
+	char		buffer[BUFFER_SIZE+1];
+	// char		*temp_read_loop;
 	size_t		size_read;
 
-	size_read = BUFFER_SIZE;
-	while(size_read == BUFFER_SIZE)
+	while(!ft_strchr(nextline, '\n'))
 	{
 		size_read = read(fd, buffer, BUFFER_SIZE);
-		buffer[size_read + 1] = 0; // CHECAR ISSO!!!!
-		temp = nextline;
+		buffer[size_read] = 0; // CHECAR ISSO!!!!
+		// temp_read_loop = nextline;
 		nextline = ft_strjoin(nextline, buffer);
-		free(temp);
-		if (ft_strchr(buffer, '\n'))
+		// free(temp_read_loop);	
+		if (size_read < BUFFER_SIZE)
 			break;
 	}
 	return(nextline);
@@ -27,7 +26,7 @@ static char *read_loop(int fd, char *nextline)
 
 	a = 0;
 	//maybe zero remainder?????
-	while(nextline[a] != '\n')
+	while(nextline[a] != '\n' && nextline[a] != 0)
 		a++;
 	ft_strlcpy(remainder, &nextline[a + 1], BUFFER_SIZE);
 	nextline[a + 1] = 0;
@@ -36,7 +35,7 @@ static char *read_loop(int fd, char *nextline)
 char	*get_next_line(int fd)
 {
 	char		*nextline;
-	char		*temp;
+	// char		*temp_gnl;
 	static char	remainder[BUFFER_SIZE];
 
 	if (fd < 0)
@@ -44,15 +43,15 @@ char	*get_next_line(int fd)
 	nextline = ft_strdup(remainder);
 	if (!nextline)
 		return (NULL);
-	temp = nextline;
+	// temp_gnl = nextline;
 	nextline = read_loop(fd, nextline);
 	if (!nextline || nextline[0] == 0)
 	{
 		free(nextline);
 		return (NULL);
 	}
-	free(temp);
-	ft_extract_remain(remainder, nextline);
+	// free(temp_gnl);
+	ft_extract_remain(nextline, remainder);
 	return (nextline);
 }
 

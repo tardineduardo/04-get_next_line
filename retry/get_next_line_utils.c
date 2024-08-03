@@ -91,7 +91,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
     ft_strlcpy(newstring, s1, s1_len + 1);
     ft_strlcpy(newstring + s1_len, s2, s2_len + 1);
-	newstring[ns_len + 1] = 0;
+	newstring[ns_len] = 0;
 	return (newstring);
 }
 
