@@ -10,8 +10,8 @@
 		"args": [],
 		"stopAtEntry": false,
 		"externalConsole": false,
-		"cwd": "/home/eduardo/Documentos/gnl-1/retry",
-		"program": "/home/eduardo/Documentos/gnl-1/retry/get",
+		"cwd": "/home/eduardo/Documentos/gnl/retry",
+		"program": "/home/eduardo/Documentos/gnl/retry/get",
 		"MIMode": "gdb",
 		"miDebuggerPath": "gdb",
 		"setupCommands": [

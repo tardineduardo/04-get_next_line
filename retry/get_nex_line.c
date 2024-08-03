@@ -41,6 +41,7 @@ char	*get_next_line(int fd)
 	if (fd < 0)
 		return (NULL);
 	nextline = ft_strdup(remainder);
+	remainder[0] = 0;
 	if (!nextline)
 		return (NULL);
 	// temp_gnl = nextline;
@@ -51,7 +52,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	// free(temp_gnl);
-	ft_extract_remain(nextline, remainder);
+	if (ft_strchr(nextline, '\n'))
+		ft_extract_remain(nextline, remainder);
 	return (nextline);
 }
 
