@@ -8,11 +8,16 @@ static char *read_loop_heap(int fd, char *nextline)
 	size_t		size_read;
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-
 	while(!ft_strchr(nextline, '\n'))
 	{
 		size_read = read(fd, buffer, BUFFER_SIZE);
-		buffer[size_read] = 0; // CHECAR ISSO!!!!
+		if (read == -1)
+		{
+			free(buffer);
+			buffer = NULL;
+			return (NULL);
+		}
+		buffer[size_read] = 0;
 		temp_read_loop = nextline;
 		nextline = ft_strjoin(nextline, buffer);
 		free(temp_read_loop);
@@ -34,7 +39,7 @@ static char *read_loop_stack(int fd, char *nextline)
 	while(!ft_strchr(nextline, '\n'))
 	{
 		size_read = read(fd, buffer, BUFFER_SIZE);
-		buffer[size_read] = 0; // CHECAR ISSO!!!!
+		buffer[size_read] = 0;
 		temp_read_loop = nextline;
 		nextline = ft_strjoin(nextline, buffer);
 		free(temp_read_loop);
