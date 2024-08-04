@@ -64,6 +64,10 @@ char	*get_next_line(int fd)
 	if (remainder == NULL)
 		remainder = malloc(1024 * sizeof(char *));
 
+
+// to do: understand why the remainder is not being saved in remainder for the next line read
+
+
 	nextline = ft_strdup(remainder[fd]);
 	remainder[fd] = 0;
 	if (!nextline)
