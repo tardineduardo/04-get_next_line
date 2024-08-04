@@ -1,6 +1,28 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
+// static char *read_loop(int fd, char *nextline)
+// {
+// 	char		*buffer;
+// 	char		*temp_read_loop;
+// 	size_t		size_read;
+
+// 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
+
+// 	while(!ft_strchr(nextline, '\n'))
+// 	{
+// 		size_read = read(fd, buffer, BUFFER_SIZE);
+// 		buffer[size_read] = 0; // CHECAR ISSO!!!!
+// 		temp_read_loop = nextline;
+// 		nextline = ft_strjoin(nextline, buffer);
+// 		free(temp_read_loop);	
+// 		if (size_read < BUFFER_SIZE)
+// 			break;
+// 	}
+// 	free(buffer);
+// 	return(nextline);
+// }
+
 static char *read_loop(int fd, char *nextline)
 {
 	char		buffer[BUFFER_SIZE+1];
@@ -20,6 +42,9 @@ static char *read_loop(int fd, char *nextline)
 	return(nextline);
 }
 
+
+
+
  static void	ft_extract_remain(char *nextline, char *remainder)
 {
 	int		a;
@@ -36,7 +61,7 @@ char	*get_next_line(int fd)
 	char		*nextline;
 	static char	remainder[BUFFER_SIZE];
 
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)		
 		return (NULL);
 	nextline = ft_strdup(remainder);
 	remainder[0] = 0;
@@ -56,7 +81,7 @@ char	*get_next_line(int fd)
 
 int main(void)
 {
-    int file = open("test1", O_RDONLY); // Open a file for reading
+    int file = open("test1.txt", O_RDONLY); // Open a file for reading
     int a = 0; // Counter for lines
     int b = 1; // Line number for printing
     char *newline; // Pointer to store the line read
@@ -80,5 +105,3 @@ int main(void)
 	tmp = NULL;
     return (0); // Return success
 }
-
-
