@@ -25,13 +25,17 @@ size_t	ft_strlen(char *s)
 	return (count);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(char *s)
 {
 	int		a;
 	int		len;
 	char	*dest;
 
-	if 
+	if (s == NULL)
+	{
+		s = malloc(1);
+		s[0] = 0;
+	}
 
 	len = ft_strlen((char *)s);
 	dest = malloc((len + 1) * sizeof(char));
@@ -43,6 +47,8 @@ char	*ft_strdup(const char *s)
 		dest[a] = s[a];
 		a++;
 	}
+	free(s);
+	s = NULL;
 	return (dest);
 }
 

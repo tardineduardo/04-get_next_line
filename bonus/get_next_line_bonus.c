@@ -1,6 +1,17 @@
 #include "get_next_line_bonus.h"
 
-// if the BUFFER SIZE is toolarge, it's dinamically allocated in the heap.
+
+/**********************************************************************************/
+
+// to do: understand why the remainder is not being saved in remainder for the next line read
+
+
+/**********************************************************************************/
+
+
+
+
+
 static char *read_loop_heap(int fd, char *nextline)
 {
 	char		*buffer;
@@ -30,38 +41,20 @@ static char *read_loop_heap(int fd, char *nextline)
 	return(nextline);
 }
 
-// if the BUFFER SIZE is small, it's stored in the stack for better performance.
-// static char *read_loop_stack(int fd, char *nextline)
-// {
-// 	char		buffer[BUFFER_SIZE+1];
-// 	char		*temp_read_loop;
-// 	int			size_read;
-
-// 	while(!ft_strchr(nextline, '\n'))
-// 	{
-// 		size_read = read(fd, buffer, BUFFER_SIZE);
-// 		if (size_read == -1)
-//			return (NULL);
-// 		buffer[size_read] = 0;
-// 		temp_read_loop = nextline;
-// 		nextline = ft_strjoin(nextline, buffer);
-// 		free(temp_read_loop);
-// 		temp_read_loop = NULL;
-// 		if (size_read < BUFFER_SIZE)
-// 			break;
-// 	}
-// 	return(nextline);
-// }
-
-static void	ft_extract_remain(char *nextline, char **remainder, int fd)
+static void	ft_extract_remain(char *nextline, char *remainder)
 {
 	int		a;
+	int		len;
 
+	len = ft_strlen(nextline);
+	if (remainder == NULL)
+		remainder = malloc(BUFFER_SIZE);
 	a = 0;
 	while(nextline[a] != '\n' && nextline[a] != 0)
 		a++;
-	ft_strlcpy(remainder[fd], &nextline[a + 1], BUFFER_SIZE);
+	ft_strlcpy(remainder, &nextline[a + 1], BUFFER_SIZE);
 	nextline[a + 1] = 0;
+	remainder[len - a] = 0;
 }
 
 char	*get_next_line(int fd)
@@ -69,25 +62,16 @@ char	*get_next_line(int fd)
 	char		*nextline;
 	static char	**remainder;
 	
-	if (fd < 0 || BUFFER_SIZE <= 0)		
-		return (NULL);
 	if (read(fd, 0, 0) == -1)
 		return (NULL);
-
 	if (remainder == NULL)
-		remainder = calloc(1024, sizeof(char *));
-
+		remainder = malloc(1024 * sizeof(char *));
 
 	nextline = ft_strdup(remainder[fd]);
-	remainder[0] = 0;
+	remainder[fd] = 0;
 	if (!nextline)
 		return (NULL);
-
-	// if (BUFFER_SIZE <= 20000)
-	// 	nextline = read_loop_stack(fd, nextline);
-	//if (BUFFER_SIZE > 20000)
-		nextline = read_loop_heap(fd, nextline);	
-
+	nextline = read_loop_heap(fd, nextline);	
 	if (!nextline || nextline[0] == 0)
 	{
 		free(nextline);
@@ -95,7 +79,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	if (ft_strchr(nextline, '\n'))
-		ft_extract_remain(nextline, remainder, fd);
+		ft_extract_remain(nextline, remainder[fd]);
 	return (nextline);
 }
 

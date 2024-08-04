@@ -30,7 +30,7 @@
 
 // Function declarations
 char    *get_next_line(int fd);
-char	*ft_strdup(const char *s);
+char	*ft_strdup(char *s);
 size_t  ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(const char *str, int c);
