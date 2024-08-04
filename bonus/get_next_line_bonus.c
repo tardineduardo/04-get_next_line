@@ -9,9 +9,6 @@
 /**********************************************************************************/
 
 
-
-
-
 static char *read_loop_heap(int fd, char *nextline)
 {
 	char		*buffer;
