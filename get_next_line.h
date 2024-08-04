@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 // Check if BUFFER_SIZE is already defined during compilation
 # ifndef BUFFER_SIZE

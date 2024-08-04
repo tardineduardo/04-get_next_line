@@ -1,17 +1,23 @@
 #include "get_next_line_bonus.h"
 
+// if the BUFFER SIZE is toolarge, it's dinamically allocated in the heap.
 static char *read_loop_heap(int fd, char *nextline)
 {
 	char		*buffer;
 	char		*temp_read_loop;
-	size_t		size_read;
+	int			size_read;
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-
 	while(!ft_strchr(nextline, '\n'))
 	{
 		size_read = read(fd, buffer, BUFFER_SIZE);
-		buffer[size_read] = 0; // CHECAR ISSO!!!!
+		if (size_read == -1)
+		{
+			free(buffer);
+			buffer = NULL;
+			return (NULL);
+		}
+		buffer[size_read] = 0;
 		temp_read_loop = nextline;
 		nextline = ft_strjoin(nextline, buffer);
 		free(temp_read_loop);
@@ -24,25 +30,28 @@ static char *read_loop_heap(int fd, char *nextline)
 	return(nextline);
 }
 
-static char *read_loop_stack(int fd, char *nextline)
-{
-	char		buffer[BUFFER_SIZE+1];
-	char		*temp_read_loop;
-	size_t		size_read;
+// if the BUFFER SIZE is small, it's stored in the stack for better performance.
+// static char *read_loop_stack(int fd, char *nextline)
+// {
+// 	char		buffer[BUFFER_SIZE+1];
+// 	char		*temp_read_loop;
+// 	int			size_read;
 
-	while(!ft_strchr(nextline, '\n'))
-	{
-		size_read = read(fd, buffer, BUFFER_SIZE);
-		buffer[size_read] = 0; // CHECAR ISSO!!!!
-		temp_read_loop = nextline;
-		nextline = ft_strjoin(nextline, buffer);
-		free(temp_read_loop);
-		temp_read_loop = NULL;
-		if (size_read < BUFFER_SIZE)
-			break;
-	}
-	return(nextline);
-}
+// 	while(!ft_strchr(nextline, '\n'))
+// 	{
+// 		size_read = read(fd, buffer, BUFFER_SIZE);
+// 		if (size_read == -1)
+//			return (NULL);
+// 		buffer[size_read] = 0;
+// 		temp_read_loop = nextline;
+// 		nextline = ft_strjoin(nextline, buffer);
+// 		free(temp_read_loop);
+// 		temp_read_loop = NULL;
+// 		if (size_read < BUFFER_SIZE)
+// 			break;
+// 	}
+// 	return(nextline);
+// }
 
 static void	ft_extract_remain(char *nextline, char **remainder, int fd)
 {
@@ -65,18 +74,20 @@ char	*get_next_line(int fd)
 	if (read(fd, 0, 0) == -1)
 		return (NULL);
 
+	if (remainder == NULL)
+		remainder = calloc(1024, sizeof(char *));
 
-	remainder = malloc
 
-	
 	nextline = ft_strdup(remainder[fd]);
 	remainder[0] = 0;
 	if (!nextline)
 		return (NULL);
-	if (BUFFER_SIZE > 20000)
+
+	// if (BUFFER_SIZE <= 20000)
+	// 	nextline = read_loop_stack(fd, nextline);
+	//if (BUFFER_SIZE > 20000)
 		nextline = read_loop_heap(fd, nextline);	
-	if (BUFFER_SIZE <= 20000)
-	nextline = read_loop_stack(fd, nextline);
+
 	if (!nextline || nextline[0] == 0)
 	{
 		free(nextline);

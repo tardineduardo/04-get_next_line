@@ -1,17 +1,17 @@
 #include "get_next_line.h"
-#include <stdio.h>
 
+// if the BUFFER SIZE is toolarge, it's dinamically allocated in the heap.
 static char *read_loop_heap(int fd, char *nextline)
 {
 	char		*buffer;
 	char		*temp_read_loop;
-	size_t		size_read;
+	int			size_read;
 
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	while(!ft_strchr(nextline, '\n'))
 	{
 		size_read = read(fd, buffer, BUFFER_SIZE);
-		if (read == -1)
+		if (size_read == -1)
 		{
 			free(buffer);
 			buffer = NULL;
@@ -30,15 +30,18 @@ static char *read_loop_heap(int fd, char *nextline)
 	return(nextline);
 }
 
+// if the BUFFER SIZE is small, it's stored in the stack for better performance.
 static char *read_loop_stack(int fd, char *nextline)
 {
 	char		buffer[BUFFER_SIZE+1];
 	char		*temp_read_loop;
-	size_t		size_read;
+	int			size_read;
 
 	while(!ft_strchr(nextline, '\n'))
 	{
 		size_read = read(fd, buffer, BUFFER_SIZE);
+		if (size_read == -1)
+			return (NULL);
 		buffer[size_read] = 0;
 		temp_read_loop = nextline;
 		nextline = ft_strjoin(nextline, buffer);
@@ -74,9 +77,9 @@ char	*get_next_line(int fd)
 	remainder[0] = 0;
 	if (!nextline)
 		return (NULL);
-	if (BUFFER_SIZE > 20000)
+	if (BUFFER_SIZE >= 2)
 		nextline = read_loop_heap(fd, nextline);	
-	if (BUFFER_SIZE <= 20000)
+	if (BUFFER_SIZE < 2)
 	nextline = read_loop_stack(fd, nextline);
 	if (!nextline || nextline[0] == 0)
 	{

@@ -10,8 +10,8 @@
 		"args": [],
 		"stopAtEntry": false,
 		"externalConsole": false,
-		"cwd": "/home/eduardo/Documentos/gnl/",
-		"program": "/home/eduardo/Documentos/gnl/get",
+		"cwd": "/home/eduardo/Documentos/gnl/bonus",
+		"program": "/home/eduardo/Documentos/gnl/bonus/a.out",
 		"MIMode": "gdb",
 		"miDebuggerPath": "gdb",
 		"setupCommands": [
