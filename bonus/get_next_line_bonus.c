@@ -62,8 +62,10 @@ char	*get_next_line(int fd)
 	if (read(fd, 0, 0) == -1)
 		return (NULL);
 	if (remainder == NULL)
+	
 		remainder = malloc(1024 * sizeof(char *));
-
+	
+	printf("remainder %s\n", remainder[fd]);
 
 // to do: understand why the remainder is not being saved in remainder for the next line read
 
@@ -81,6 +83,7 @@ char	*get_next_line(int fd)
 	}
 	if (ft_strchr(nextline, '\n'))
 		ft_extract_remain(nextline, remainder[fd]);
+	printf("remainder %s\n", remainder[fd]);
 	return (nextline);
 }
 
