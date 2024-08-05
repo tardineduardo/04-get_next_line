@@ -12,46 +12,46 @@ static void	ft_extract_remain(char *nextline, char *remainder);
 
 
 
-// int main(void)
-// {
-//     int file = open("test1.txt", O_RDONLY); // Open a file for reading
-//     int a = 0; // Counter for lines
-//     int b = 1; // Line number for printing
-//     char *newline; // Pointer to store the line read
-// 	char *tmp;
+int main(void)
+{
+    int file = open("test1.txt", O_RDONLY); // Open a file for reading
+    int a = 0; // Counter for lines
+    int b = 1; // Line number for printing
+    char *newline; // Pointer to store the line read
+	char *tmp;
 
-// 	newline = malloc (1*1);
-// 	tmp = newline;
+	newline = malloc (1*1);
+	tmp = newline;
 
-//     while(newline) 
-//     {
-//         newline = get_next_line(file); // Get the next line from the file
-//         if (newline == NULL) // If NULL is returned (EOF or error)
-// 		{
-// 			break; // Exit the loop
-// 		}
-//         printf("newline %d -> %s", b, newline); // Print the line
-// 		free(newline); // Free the line after printing to prevent memory leaks
+    while(newline) 
+    {
+        newline = get_next_line(file); // Get the next line from the file
+        if (newline == NULL) // If NULL is returned (EOF or error)
+		{
+			break; // Exit the loop
+		}
+        printf("newline %d -> %s", b, newline); // Print the line
+		free(newline); // Free the line after printing to prevent memory leaks
 
-//         a++; // Increment line counter
-//         b++; // Increment line number
-//     }
-// 	free(tmp); // Free the line after printing to prevent memory leaks
-// 	tmp = NULL;
-//     return (0); // Return success
-// }
+        a++; // Increment line counter
+        b++; // Increment line number
+    }
+	free(tmp); // Free the line after printing to prevent memory leaks
+	tmp = NULL;
+    return (0); // Return success
+}
 
 
 
 char	*get_next_line(int fd)
 {
 	char		*nextline;
-	static char	*remainder[_POSIX_OPEN_MAX];
+	static char	**remainder;
 	
 	if (read(fd, 0, 0) == -1)
 		return (NULL);
-	// if (!remainder)
-	// 	remainder = calloc(20, sizeof(char *));
+	if (!remainder)
+		remainder = calloc(20, sizeof(char *));
 	if (!remainder[fd])
 		remainder[fd] = calloc(BUFFER_SIZE, 1);
 	nextline = ft_strdup(remainder[fd]);
