@@ -5,41 +5,31 @@ static char *ft_read_loop_heap(int fd, char *nextline);
 static void	ft_extract_remain(char *nextline, char *remainder);
 
 
+int main(void)
+{
+    int file1 = open("file1.txt", O_RDONLY);
+    int file2 = open("file2.txt", O_RDONLY);
+    int file3 = open("file3.txt", O_RDONLY);
+    int file4 = open("file4.txt", O_RDONLY);
 
+    char *newline;
+	
+	newline = get_next_line(file1);
+	if (newline)
+	{
+		printf("file1.txt, line 1 -> %s\n",newline);
+		free(newline);
+	}
 
-// FREE REMAINDER (POR LINHA E GERAL)
+	newline = get_next_line(file1);
+	if (newline)
+	{
+		printf("file1.txt, line 2 -> %s\n",newline);
+		free(newline);
+	}
 
-
-
-
-// int main(void)
-// {
-//     int file = open("test1.txt", O_RDONLY); // Open a file for reading
-//     int a = 0; // Counter for lines
-//     int b = 1; // Line number for printing
-//     char *newline; // Pointer to store the line read
-// 	char *tmp;
-
-// 	newline = malloc (1*1);
-// 	tmp = newline;
-
-//     while(newline) 
-//     {
-//         newline = get_next_line(file); // Get the next line from the file
-//         if (newline == NULL) // If NULL is returned (EOF or error)
-// 		{
-// 			break; // Exit the loop
-// 		}
-//         printf("newline %d -> %s", b, newline); // Print the line
-// 		free(newline); // Free the line after printing to prevent memory leaks
-
-//         a++; // Increment line counter
-//         b++; // Increment line number
-//     }
-// 	free(tmp); // Free the line after printing to prevent memory leaks
-// 	tmp = NULL;
-//     return (0); // Return success
-// }
+    return (0); // Return success
+}
 
 
 
@@ -50,8 +40,6 @@ char	*get_next_line(int fd)
 	
 	if (read(fd, 0, 0) == -1)
 		return (NULL);
-	// if (!remainder)
-	// 	remainder = calloc(20, sizeof(char *));
 	if (!remainder[fd])
 		remainder[fd] = calloc(BUFFER_SIZE, 1);
 	nextline = ft_strdup(remainder[fd]);
@@ -112,7 +100,3 @@ static void	ft_extract_remain(char *nextline, char *remainder)
 	ft_strlcpy(remainder, &nextline[a + 1], BUFFER_SIZE);
 	nextline[a + 1] = 0;
 }
-
-
-//static void ft_free_remainder(**s)
-
