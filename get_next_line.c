@@ -93,29 +93,29 @@ char	*get_next_line(int fd)
 }
 
 
-// int main(void)
-// {
-//     int file = open("test1.txt", O_RDONLY); // Open a file for reading
-//     int a = 0; // Counter for lines
-//     int b = 1; // Line number for printing
-//     char *newline; // Pointer to store the line read
-// 	char *tmp;
-// 	newline = malloc (1*1);
-// 	tmp = newline;
-//     while(newline) 
-//     {
-//         newline = get_next_line(file); // Get the next line from the file
-//         if (newline == NULL) // If NULL is returned (EOF or error)
-// 		{
-// 			break; // Exit the loop
-// 		}
-//         printf("newline %d -> %s", b, newline); // Print the line
-// 		free(newline); // Free the line after printing to prevent memory leaks
+int main(void)
+{
+    int file = open("file4.txt", O_RDONLY); // Open a file for reading
+    int a = 0; // Counter for lines
+    int b = 1; // Line number for printing
+    char *newline; // Pointer to store the line read
+	char *tmp;
+	newline = malloc (1*1);
+	tmp = newline;
+    while(newline) 
+    {
+        newline = get_next_line(file); // Get the next line from the file
+        if (newline == NULL) // If NULL is returned (EOF or error)
+		{
+			break; // Exit the loop
+		}
+        printf("newline %d -> %s", b, newline); // Print the line
+		free(newline); // Free the line after printing to prevent memory leaks
 
-//         a++; // Increment line counter
-//         b++; // Increment line number
-//     }
-// 	free(tmp); // Free the line after printing to prevent memory leaks
-// 	tmp = NULL;
-//     return (0); // Return success
-// }
+        a++; // Increment line counter
+        b++; // Increment line number
+    }
+	free(tmp); // Free the line after printing to prevent memory leaks
+	tmp = NULL;
+    return (0); // Return success
+}
