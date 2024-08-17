@@ -25,13 +25,13 @@
 
 // Check if BUFFER_SIZE is already defined during compilation
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 4 // Default buffer size if not defined externally
+#  define BUFFER_SIZE 42 // Default buffer size if not defined externally
 # endif
 
 // Function declarations
 char    *get_next_line(int fd);
 char	*ft_strdup(char *s);
-size_t  ft_strlen(char *s);
+size_t  ft_strlen(char *s);s
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(const char *str, int c);
 size_t ft_strlcpy(char *dest, const char *src, size_t size);
