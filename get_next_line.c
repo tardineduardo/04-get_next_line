@@ -77,9 +77,9 @@ char	*get_next_line(int fd)
 	remainder[0] = 0;
 	if (!nextline)
 		return (NULL);
-	if (BUFFER_SIZE >= 2)
+	if (BUFFER_SIZE >= 100)
 		nextline = read_loop_heap(fd, nextline);	
-	if (BUFFER_SIZE < 2)
+	if (BUFFER_SIZE < 100)
 	nextline = read_loop_stack(fd, nextline);
 	if (!nextline || nextline[0] == 0)
 	{
