@@ -1,32 +1,5 @@
 #include "get_next_line_bonus.h"
 
-// int main(void)
-// {
-//     int file1 = open("file1.txt", O_RDONLY);
-//     int file2 = open("file2.txt", O_RDONLY);
-//     int file3 = open("file3.txt", O_RDONLY);
-//     int file4 = open("file4.txt", O_RDONLY);
-
-//     char *newline;
-	
-// 	newline = get_next_line(file1);
-// 	if (newline)
-// 	{
-// 		printf("file1.txt, line 1 -> %s\n",newline);
-// 		free(newline);
-// 	}
-
-// 	newline = get_next_line(file1);
-// 	if (newline)
-// 	{
-// 		printf("file1.txt, line 2 -> %s\n",newline);
-// 		free(newline);
-// 	}
-
-//     return (0); // Return success
-// }
-
-
 static char *ft_read_loop(int fd, char *nextline)
 {
 	char		*buffer;
@@ -94,3 +67,30 @@ char	*get_next_line(int fd)
 		ft_extract_remain(nextline, remainder[fd]);
 	return (nextline);
 }
+
+
+// int main(void)
+// {
+//     int file1 = open("file1.txt", O_RDONLY);
+//     int file2 = open("file2.txt", O_RDONLY);
+//     int file3 = open("file3.txt", O_RDONLY);
+//     int file4 = open("file4.txt", O_RDONLY);
+
+//     char *newline;
+	
+// 	newline = get_next_line(file1);
+// 	if (newline)
+// 	{
+// 		printf("file1.txt, line 1 -> %s\n",newline);
+// 		free(newline);
+// 	}
+
+// 	newline = get_next_line(file1);
+// 	if (newline)
+// 	{
+// 		printf("file1.txt, line 2 -> %s\n",newline);
+// 		free(newline);
+// 	}
+
+//     return (0); // Return success
+// }
