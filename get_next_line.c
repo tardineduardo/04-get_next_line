@@ -95,27 +95,27 @@ char	*get_next_line(int fd)
 
 int main(void)
 {
-    int file = open("file4.txt", O_RDONLY); // Open a file for reading
-    int a = 0; // Counter for lines
-    int b = 1; // Line number for printing
-    char *newline; // Pointer to store the line read
+    int file = open("file4.txt", O_RDONLY); 
+    int a = 0; 
+    int b = 1; 
+    char *newline; 
 	char *tmp;
 	newline = malloc (1*1);
 	tmp = newline;
     while(newline) 
     {
-        newline = get_next_line(file); // Get the next line from the file
-        if (newline == NULL) // If NULL is returned (EOF or error)
+        newline = get_next_line(file); 
+        if (newline == NULL) 
 		{
-			break; // Exit the loop
+			break; 
 		}
-        printf("newline %d -> %s", b, newline); // Print the line
-		free(newline); // Free the line after printing to prevent memory leaks
+        printf("newline %d -> %s", b, newline); 
+		free(newline); 
 
-        a++; // Increment line counter
-        b++; // Increment line number
+        a++;
+        b++; 
     }
-	free(tmp); // Free the line after printing to prevent memory leaks
+	free(tmp);
 	tmp = NULL;
-    return (0); // Return success
+    return (0); 
 }
