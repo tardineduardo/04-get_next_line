@@ -85,7 +85,6 @@ char	*get_next_line(int fd)
 	{
 		free(nextline);
 		nextline = NULL;
-		remainder[0] = 0;
 		return (NULL);
 	}
 	if (ft_strchr(nextline, '\n'))
