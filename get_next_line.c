@@ -1,7 +1,7 @@
 #include "get_next_line.h"
 
 // if the BUFFER SIZE is toolarge, it's dinamically allocated in the heap.
-static char *read_loop_heap(int fd, char *nextline)
+char *read_loop_heap(int fd, char *nextline)
 {
 	char		*buffer;
 	char		*temp_read_loop;
@@ -31,7 +31,7 @@ static char *read_loop_heap(int fd, char *nextline)
 }
 
 // if the BUFFER SIZE is small, it's stored in the stack for better performance.
-static char *read_loop_stack(int fd, char *nextline)
+char *read_loop_stack(int fd, char *nextline)
 {
 	char		buffer[BUFFER_SIZE+1];
 	char		*temp_read_loop;
@@ -53,7 +53,7 @@ static char *read_loop_stack(int fd, char *nextline)
 	return(nextline);
 }
 
-static void	ft_extract_remain(char *nextline, char *remainder)
+void	ft_extract_remain(char *nextline, char *remainder)
 {
 	int		a;
 
@@ -69,7 +69,7 @@ char	*get_next_line(int fd)
 	char		*nextline;
 	static char	remainder[BUFFER_SIZE];
 
-	if (fd < 0 || BUFFER_SIZE <= 0)		
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (read(fd, 0, 0) == -1)
 		return (NULL);	
@@ -85,6 +85,7 @@ char	*get_next_line(int fd)
 	{
 		free(nextline);
 		nextline = NULL;
+		remainder[0] = 0;
 		return (NULL);
 	}
 	if (ft_strchr(nextline, '\n'))
@@ -93,29 +94,29 @@ char	*get_next_line(int fd)
 }
 
 
-int main(void)
-{
-    int file = open("file4.txt", O_RDONLY); 
-    int a = 0; 
-    int b = 1; 
-    char *newline; 
-	char *tmp;
-	newline = malloc (1*1);
-	tmp = newline;
-    while(newline) 
-    {
-        newline = get_next_line(file); 
-        if (newline == NULL) 
-		{
-			break; 
-		}
-        printf("newline %d -> %s", b, newline); 
-		free(newline); 
+// int main(void)
+// {
+//     int file = open("file4.txt", O_RDONLY); 
+//     int a = 0; 
+//     int b = 1; 
+//     char *newline; 
+// 	char *tmp;
+// 	newline = malloc (1*1);
+// 	tmp = newline;
+//     while(newline) 
+//     {
+//         newline = get_next_line(file); 
+//         if (newline == NULL) 
+// 		{
+// 			break; 
+// 		}
+//         printf("newline %d -> %s", b, newline); 
+// 		free(newline); 
 
-        a++;
-        b++; 
-    }
-	free(tmp);
-	tmp = NULL;
-    return (0); 
-}
+//         a++;
+//         b++; 
+//     }
+// 	free(tmp);
+// 	tmp = NULL;
+//     return (0); 
+// }

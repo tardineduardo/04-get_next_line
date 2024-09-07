@@ -1,9 +1,10 @@
 {
   "files.associations": {
-    "unistd.h": "c",
-    "get_next_line.h": "c",
-    "get_next_line_bonus.h": "c"
-  },
+	"unistd.h": "c",
+	"get_next_line.h": "c",
+	"get_next_line_bonus.h": "c",
+	"cmath": "c"
+},
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
   "C_Cpp_Runner.debuggerPath": "gdb",
