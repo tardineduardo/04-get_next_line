@@ -29,7 +29,6 @@ static char *ft_read_loop(int fd, char *nextline)
 	return(nextline);
 }
 
-
 static void	ft_extract_remain(char *nextline, char *remainder)
 {
 	int		a;
@@ -41,20 +40,13 @@ static void	ft_extract_remain(char *nextline, char *remainder)
 	nextline[a + 1] = 0;
 }
 
-
 char	*get_next_line(int fd)
 {
 	char		*nextline;
-	static char	*remainder[_POSIX_OPEN_MAX];
+	static char	*remainder[2000];
 	
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-
 	if (read(fd, 0, 0) == -1)
-	{
-		// remainder[fd] = NULL;
 		return (NULL);
-	}
 	if (!remainder[fd])
 		remainder[fd] = calloc(BUFFER_SIZE, 1);
 	nextline = ft_strdup(remainder[fd]);
