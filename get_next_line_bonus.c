@@ -56,8 +56,10 @@ char	*get_next_line(int fd)
 	nextline = ft_read_loop(fd, nextline);	
 	if (!nextline || nextline[0] == 0)
 	{
-		free(remainder[fd]);
-		free(nextline);
+		if(nextline)
+			free(nextline);
+		if(remainder[fd])
+			free(remainder[fd]);	
 		nextline = NULL;
 		remainder[fd] = NULL;
 		return (NULL);
