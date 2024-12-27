@@ -6,31 +6,30 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 18:14:07 by eduribei          #+#    #+#             */
-/*   Updated: 2024/06/20 23:50:36 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/12/27 13:32:16 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-# define HEADER_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-# include <stddef.h>  // Ensure this is included first for size_t
+# include <stddef.h>
 # include <stdint.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdio.h>
 
-// Check if BUFFER_SIZE is already defined during compilation
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42 // Default buffer size if not defined externally
+#  define BUFFER_SIZE 42
 # endif
 
 // Function declarations
-char    *get_next_line(int fd);
+char	*get_next_line(int fd);
 char	*ft_strdup(const char *s);
-size_t  ft_strlen(char *s);
+size_t	ft_strlen(char *s);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(const char *str, int c);
-size_t ft_strlcpy(char *dest, const char *src, size_t size);
+size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 
-#endif // HEADER_H
+#endif
