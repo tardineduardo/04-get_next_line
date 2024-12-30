@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 21:13:06 by eduribei          #+#    #+#             */
-/*   Updated: 2024/12/27 13:36:00 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:53:01 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ char	*get_next_line(int fd)
 	static char	remainder[BUFFER_SIZE];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	if (read(fd, 0, 0) == -1)
 		return (NULL);
 	nextline = ft_strdup(remainder);
 	remainder[0] = 0;
