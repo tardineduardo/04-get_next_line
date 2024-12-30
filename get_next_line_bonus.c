@@ -6,7 +6,7 @@
 /*   By: eduribei <eduribei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/27 13:34:37 by eduribei          #+#    #+#             */
-/*   Updated: 2024/12/27 13:36:08 by eduribei         ###   ########.fr       */
+/*   Updated: 2024/12/30 16:51:19 by eduribei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*get_next_line(int fd)
 	char		*nextline;
 	static char	*remainder[2000];
 
-	if (read(fd, 0, 0) == -1)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!remainder[fd])
 		remainder[fd] = calloc(BUFFER_SIZE, 1);
